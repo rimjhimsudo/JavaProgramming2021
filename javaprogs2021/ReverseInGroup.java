@@ -34,14 +34,14 @@ public class ReverseInGroup {
         
     }
      static void rev_group(int n,int k,ArrayList<Integer> arr){
-         int s=0;
+         int start=0;
          int size=n-1;
          int end=k-1;
          int i=0;
          while(i<size){
-             fxn_revRecur(s,end,arr);
+             fxn_revRecur(start,end,arr);
              i+=k;
-             s=i;
+             start=i;
              if(size-i<k){
                  end=size;
              }
