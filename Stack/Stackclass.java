@@ -70,9 +70,7 @@ class Main
         int arr[]={7 ,2 ,8, 9 ,1 ,3 ,6, 5};
         NearestGreatestToLeft obj= new NearestGreatestToLeft();
         NearestSmallestToLR obj1=new NearestSmallestToLR();
-        MaxHistogramArea ob=new MaxHistogramArea();
-        int area=ob.getMaxArea(arr, 8);
-        System.out.println(area);
+        //System.out.println(area);
         //int res[]=obj.Ngl(arr);
         //int res[]=obj1.NearestSmallestLeft(arr);
        /*

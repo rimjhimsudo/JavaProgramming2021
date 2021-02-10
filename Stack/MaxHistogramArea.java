@@ -9,13 +9,15 @@ import java.util.Stack;
  *
  * @author lenovo
  */
-public class MAH{
+public class MaxHistogramArea{
     public static void main(String args[]){
-        Solution s=new Solution();
-        System.out.println();
+        Solve s=new Solve();
+        long arr[]={7L ,2L ,8L, 9L ,1L ,3L ,6L, 5L};
+        System.out.println(s.getMaxArea(arr,10L));
+        
     }
 }
-class Solution{
+class Solve{
     /*
     approach :
     1.fill array1 with nearest smallest elemnt to left for each value 
