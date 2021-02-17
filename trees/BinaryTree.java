@@ -86,7 +86,7 @@ public class BinaryTree {
        // System.out.println(root.data);
         while(!q.isEmpty()){
             Btnode curr=q.remove();
-             System.out.println(curr.data);
+             System.out.print(curr.data +" ");
             if(curr.left!=null){
                 q.add(curr.left);
             }
@@ -95,6 +95,67 @@ public class BinaryTree {
             }
         }
     }
+    public int height(Btnode root){
+        if(root==null){
+            return 0;
+        }
+        if(root.left==null  && root.right==null){
+            return 1;
+        }
+        return 1+ Math.max( height(root.left),height(root.right));
+    }
+    // Method to print preorder traversal
+    void printPreorder(Btnode node)
+    {
+        if(node==null){
+            return;
+        }
+        System.out.print(node.data+" ");
+        printPreorder(node.left);
+        printPreorder(node.right);
+        return;
+    }
+    void printPostorder(Btnode node)
+    {   if(node==null){
+            return;
+        }
+        printPostorder(node.left);
+        printPostorder(node.right);
+        System.out.print(node.data+" ");
+        return;
+        
+    }
+    void printInorder(Btnode node){
+        if(node==null){
+            return;
+        }
+        printInorder(node.left);
+        System.out.print(node.data+" ");
+        printInorder(node.right);
+        return;
+    }
+    public ArrayList<Integer> inorderIterative(Btnode node){
+        Stack<Btnode> s=new Stack<Btnode>();
+        ArrayList<Integer> list=new ArrayList<>();
+        while(true){
+            if(node!=null){
+                s.push(node);
+                node=node.left;
+            }
+            else{
+                if(!s.empty()){
+                    node =s.pop();
+                    list.add((Integer) node.data);
+                    node=node.right;
+                }
+                else{
+                    break;
+                }
+            }
+        }
+        return list;
+    }
+    
     public static void main(String args[] ){
         Scanner s=new Scanner(System.in);
         BinaryTree tree=new BinaryTree();
@@ -103,7 +164,18 @@ public class BinaryTree {
         //tree.printDepthWise(rootnode);
 
         Btnode<Integer> rootnode=tree.takeInputLevelWise();
-        tree.printLevelWise(rootnode);
+        //tree.printPreorder(rootnode);
+        //System.out.println();
+        //tree.printInorder(rootnode);
+        System.out.println();
+        //tree.printPostorder(rootnode);
+        //tree.printLevelWise(rootnode);
+        //int height=tree.height(rootnode);
+        //System.out.println("h"+height);
+        ArrayList<Integer> l=tree.inorderIterative(rootnode);
+        for(int i=0;i<l.size();i++){
+            System.out.println(l.get(i)+" ");
+        }
     }
     
     
