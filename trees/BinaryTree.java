@@ -102,7 +102,7 @@ public class BinaryTree {
         if(root.left==null  && root.right==null){
             return 1;
         }
-        return 1+ Math.max( height(root.left),height(root.right));
+        return  1+ Math.max( height(root.left),height(root.right));
     }
     // Method to print preorder traversal
     void printPreorder(Btnode node)
@@ -155,7 +155,27 @@ public class BinaryTree {
         }
         return list;
     }
+    public int SumofLeafNodes(Btnode root){
+        if(root==null){
+            return 0;
+        }
+        if(root.left==null && root.right==null){
+            return (int) root.data;
+        }
+        return SumofLeafNodes(root.left) + SumofLeafNodes(root.right);
+    }
     
+    public int diameter(Btnode root){
+        if(root==null){
+            return 0;
+        }
+        if(root.left==null  && root.right==null){
+            return 1;
+        }
+        int lefth=height(root.left);
+        int righth=height(root.right);
+        
+    }
     public static void main(String args[] ){
         Scanner s=new Scanner(System.in);
         BinaryTree tree=new BinaryTree();
@@ -170,12 +190,15 @@ public class BinaryTree {
         System.out.println();
         //tree.printPostorder(rootnode);
         //tree.printLevelWise(rootnode);
-        //int height=tree.height(rootnode);
-        //System.out.println("h"+height);
+        int height=tree.height(rootnode);
+        System.out.println("h"+height);
+        /*
         ArrayList<Integer> l=tree.inorderIterative(rootnode);
         for(int i=0;i<l.size();i++){
             System.out.println(l.get(i)+" ");
         }
+        */
+       // System.out.println(tree.SumofLeafNodes(rootnode));
     }
     
     
