@@ -169,12 +169,36 @@ public class BinaryTree {
         if(root==null){
             return 0;
         }
-        if(root.left==null  && root.right==null){
-            return 1;
-        }
-        int lefth=height(root.left);
-        int righth=height(root.right);
+        int casewithRoot= height(root.left)+ height(root.right)+1;
+        int caseLeft=diameter(root.left);
+        int caseRight=diameter(root.right);
+        return Math.max(casewithRoot ,Math.max(caseLeft,caseRight));
         
+    }
+    ArrayList<Integer> rightView(Btnode root) {
+        //add code here.
+        ArrayList<Integer> list=new ArrayList<Integer>();
+        Queue<Btnode> q=new LinkedList<>();
+        if(root!=null){
+            q.add(root);
+        }
+        while(!q.isEmpty()){
+            int n=q.size();
+            for(int i=1;i<=n;i++){
+                //this makes 1 level
+                Btnode temp=q.poll();
+                if(i==n){
+                    list.add((Integer) temp.data);
+                }
+                if(temp.left!=null){
+                    q.add(temp.left);
+                }
+                if(temp.right!=null){
+                    q.add(temp.right);
+                }
+            }
+        }
+        return list;
     }
     public static void main(String args[] ){
         Scanner s=new Scanner(System.in);
