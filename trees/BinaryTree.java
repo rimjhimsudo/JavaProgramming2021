@@ -23,7 +23,7 @@ public class BinaryTree {
     }
     }
     
-    public Btnode root=null;
+    //public Btnode root=null;
     int size=0;
     
     public Btnode<Integer> takeInputDepthWise(Scanner s){
@@ -102,7 +102,38 @@ public class BinaryTree {
         if(root.left==null  && root.right==null){
             return 1;
         }
+        //including above if and not including both gives same answer beeacsue if yo include then it will give you ont 1 fom here which gets added and 1  orre call is not made and when ou dont include then 1 mode call is made in depth and from there one more 1 is added to answer. so both works same.
         return  1+ Math.max( height(root.left),height(root.right));
+    }
+    //2.HEIGHT OF TREE ITERATIVE
+    public static int height_iter( Btnode root){
+        Queue<Btnode> q=new LinkedList<>();
+        if(root==null){
+          return 0;
+        }
+        int node_count=0;
+        q.add(root);
+        int height=0;
+        while(true){
+            if(q.isEmpty()){
+              return height+1; //1 is added here because for last rmoval heoght is returned and no height++ is carried out.
+            }
+            else{
+              height++;
+            }
+            node_count=q.size();
+            while(node_count>0){
+              Btnode b=q.remove();
+              if(b.left!=null){
+                q.add(b.left);
+              }
+              if(b.right!=null){
+                q.add(b.right);
+              }
+              node_count--;
+            }
+        }
+
     }
     // Method to print preorder traversal
     void printPreorder(Btnode node)
@@ -176,7 +207,7 @@ public class BinaryTree {
         
     }
     ArrayList<Integer> rightView(Btnode root) {
-        //add code here.
+        //ITERATIVE
         ArrayList<Integer> list=new ArrayList<Integer>();
         Queue<Btnode> q=new LinkedList<>();
         if(root!=null){
@@ -200,6 +231,136 @@ public class BinaryTree {
         }
         return list;
     }
+     boolean areMirror(Btnode a, Btnode b) {
+        // Your code here
+        if(a==null && b==null){
+            return true;
+        }
+        if(a.data!=b.data){
+            return false;
+        }
+        boolean ans =areMirror(a.left,b.right);
+        boolean ans1 =areMirror(a.right,b.left);
+        if(ans ==false || ans1==false){
+            return false;
+        }
+        return true;
+    }
+      public static Btnode deletionBT(Btnode root, int key){
+        //Write your code here and return the root of the changed tree
+         if (root == null)  
+            return root;  
+          
+        if (root.left == null && root.right == null) 
+        {  
+             if((int)root.data == key)  
+                {  root=null;
+                   return root;  
+                }
+             else
+                return root; 
+        } 
+        Btnode keynode=null, temp=null;
+        Queue<Btnode> q=new LinkedList<Btnode>();
+        q.add(root);
+        while(!q.isEmpty()){
+            temp=q.peek();
+            q.remove();
+            if(temp!=null && (int)temp.data==key){
+                keynode=temp;
+            }
+            
+            if(temp.left!=null){
+                q.add(temp.left);
+            }
+            if(temp.right!=null){
+                q.add(temp.right);
+            }
+        }
+        if(keynode!=null){
+            int tempval=(int)temp.data;
+            
+            deleteLastnode(root,temp);
+            keynode.data=tempval;
+        }
+        return root;
+    }
+    public static void deleteLastnode(Btnode root,Btnode last){
+        Btnode temp=null;
+        Queue<Btnode> q=new LinkedList<Btnode>();
+        q.add(root);
+        while(!q.isEmpty()){
+            temp=q.peek();
+            q.remove();
+            if(temp==last){
+                temp=null;
+                return;
+            }
+            if(temp.left!=null){
+                if(temp.left==last){
+                    temp.left=null;
+                    return;
+                }
+                else{
+                    q.add(temp.left);
+                }
+            }
+            if(temp.right!=null){
+                if(temp.right==last){
+                    temp.right=null;
+                    return;
+                }
+                else{
+                    q.add(temp.right);
+                }
+            }
+        }
+        
+    }
+    
+    public static void topView(Btnode root){
+        HashMap<Integer,ArrayList<Integer>> hmap = new HashMap<>(); 
+        Queue<Btnode> q=new LinkedList<>();
+        Queue<Integer> dist=new LinkedList<>();
+        q.add(root);
+        dist.add(0);
+        while(!q.isEmpty()){
+            int distp=dist.remove();
+            Btnode tempnode=q.peek();
+            q.remove();
+            ArrayList<Integer> get=hmap.get(distp);
+            if(get == null){
+                //System.out.println("334");
+                get =new ArrayList<>();
+                get.add((Integer) tempnode.data);
+            }
+            else{
+                //System.out.println("339");
+                get.add((Integer) tempnode.data);
+            }
+            hmap.put(distp, get);
+            if(tempnode.left!=null){
+                //System.out.println("344");
+                q.add(tempnode.left);
+                dist.add(distp-1);
+            }
+            if(tempnode.right!=null){
+                //System.out.println("349");
+                q.add(tempnode.right);
+                dist.add(distp+1);
+            }
+        }
+        for (Map.Entry<Integer,ArrayList<Integer>> e : hmap.entrySet()){
+            System.out.println(e.getValue());
+        } 
+       /* ArrayList<Integer> list=new ArrayList<>();
+        for (Map.Entry<Integer,ArrayList<Integer>> e : hmap.entrySet()){
+            list.add(e.getValue().get(0));
+        } 
+         return list;   
+        */
+        
+    }
     public static void main(String args[] ){
         Scanner s=new Scanner(System.in);
         BinaryTree tree=new BinaryTree();
@@ -208,14 +369,23 @@ public class BinaryTree {
         //tree.printDepthWise(rootnode);
 
         Btnode<Integer> rootnode=tree.takeInputLevelWise();
-        //tree.printPreorder(rootnode);
+        
+        tree.printPreorder(rootnode);
         //System.out.println();
-        //tree.printInorder(rootnode);
+        topView(rootnode);
+        /*for(int i:list){
+            System.out.println(i);
+        }
+        */
+       // tree.printInorder(rootnode);
+        //Btnode<Integer> root=deletionBT(rootnode,11);
+         System.out.println();
+        //tree.printInorder(root);
         System.out.println();
         //tree.printPostorder(rootnode);
         //tree.printLevelWise(rootnode);
-        int height=tree.height(rootnode);
-        System.out.println("h"+height);
+        //int height=tree.height(rootnode);
+        //System.out.println("h"+height);
         /*
         ArrayList<Integer> l=tree.inorderIterative(rootnode);
         for(int i=0;i<l.size();i++){
