@@ -11,7 +11,25 @@ import java.util.ArrayList;
  *
  * @author lenovo
  */
+import java.util.*;
+import java.math.*;
 public class ReverseInGroup {
+    //BEST approach
+    static void reverseKsub(int n,int k,int []arr){
+        //int n=arr.length;
+        for(int i=0;i<n;i+=k){
+            int left=i; //marks start of sub array size k
+            int right=Math.min(i+k-1,n-1);///marks start of sub array size k
+            //reverse sub array
+            while(left<right){
+                int temp=arr[right];
+                arr[right]=arr[left];
+                arr[left]=temp;
+                ++left;
+                --right;
+            }
+        }
+    }
     static void fxn_revOnArr(int i,int j,int arr[]){
         if(i>=j){
             return;
@@ -60,6 +78,7 @@ public class ReverseInGroup {
             n--;
         }
     }
+     
 
     public static void main(String args[]){
         int arr[]={1,2,3,4,5,6};
@@ -71,10 +90,10 @@ public class ReverseInGroup {
             System.out.print(arr1.get(j)+" ");
         }
          System.out.println();
-        rev_group(6,2,arr1);
+        reverseKsub(6,2,arr);
         
         for(int j=0;j<6;j++){
-            System.out.print(arr1.get(j)+" ");
+            System.out.print(arr[j]+" ");
         }
         
     }

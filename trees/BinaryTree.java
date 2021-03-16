@@ -318,7 +318,7 @@ public class BinaryTree {
         
     }
     
-    public static void topView(Btnode root){
+    public static void VerticalView(Btnode root){
         HashMap<Integer,ArrayList<Integer>> hmap = new HashMap<>(); 
         Queue<Btnode> q=new LinkedList<>();
         Queue<Integer> dist=new LinkedList<>();
@@ -372,7 +372,7 @@ public class BinaryTree {
         
         tree.printPreorder(rootnode);
         //System.out.println();
-        topView(rootnode);
+        VerticalView(rootnode);
         /*for(int i:list){
             System.out.println(i);
         }

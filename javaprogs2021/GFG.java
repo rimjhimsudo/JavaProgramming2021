@@ -16,8 +16,25 @@ import java.io.*;
 import java.util.*;
 
 public class GFG {
-     static int remove_duplicate(int A[],int N){
+    //best approach in constant space
+   static int removeDup(int a[],int N){
         // code here
+        if(N==0 || N==1){
+            return N;
+        }
+        int j=0;
+        //i is kept i<n-1 beacuse we are comparing a[i] to a[i+1] so
+        for(int i=0;i<N-1;i++){
+            if(a[i]!=a[i+1]){
+                a[j++]=a[i];
+            }
+            
+        }
+        a[j++]=a[N-1];
+        return j;//return new size
+    }
+     static int remove_duplicate(int A[],int N){
+        //BRUTEFORCE APPROACH
         int size=N;
         if(size==1){
             return size;
@@ -41,6 +58,7 @@ public class GFG {
         }
         return size;
     }
+     
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         int N=6;
